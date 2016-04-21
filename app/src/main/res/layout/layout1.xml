@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:weightSum="1">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="42dp"
+            android:weightSum="1">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Здравствуйте, Name!"
+                android:padding="12dp"
+                android:id="@+id/textView2"
+                android:layout_gravity="center_horizontal"
+                android:textColor="#000000"/>
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Ваша история болезни № ***"
+                android:id="@+id/textView3"
+                android:layout_gravity="center_horizontal"
+                android:textColor="#000000"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Диагноз: ОРВИ"
+                android:id="@+id/textView4"
+                android:padding="12dp"
+                android:layout_gravity="center_horizontal"
+                android:textColorLink="#000000"
+                android:textColor="#000000"/>
+
+            <TextView
+                android:padding="12dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Лечащий врач: Иваненко В.Н."
+                android:id="@+id/textView5"
+                android:layout_gravity="center_horizontal"
+                android:textColor="#020202"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Выберите показатель для измерения:"
+                android:id="@+id/textView6"
+                android:padding="22dp"
+                android:layout_gravity="center_horizontal"
+                android:textColor="#000000"/>
+
+            <RadioButton
+                android:layout_width="190dp"
+                android:layout_height="wrap_content"
+                android:text="Температура"
+                android:id="@+id/radioButton"
+                android:checked="false"
+                android:layout_weight="0.06"/>
+
+            <RadioButton
+                android:layout_width="137dp"
+                android:layout_height="wrap_content"
+                android:text="Давление"
+                android:id="@+id/radioButton2"
+                android:checked="false"
+                android:layout_weight="0.04"/>
+
+            <RadioButton
+                android:layout_width="157dp"
+                android:layout_height="wrap_content"
+                android:text="Пульс"
+                android:id="@+id/radioButton3"
+                android:checked="false"
+                android:layout_weight="0.10"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Внести измерение"
+                android:id="@+id/button"
+                android:layout_gravity="center_horizontal"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+</LinearLayout>
