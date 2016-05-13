@@ -1,55 +1,75 @@
 package com.sveta.diplom;
 
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
-import com.sveta.diplom.api.AuthService;
-import com.sveta.diplom.api.Util;
-import com.sveta.diplom.domain.User;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sveta.diplom.api.AndroidHttpClient;
+import com.sveta.diplom.api.model.User;
 
 import java.io.IOException;
 
-import retrofit2.Call;
-import retrofit2.Retrofit;
-import retrofit2.converter.jackson.JacksonConverterFactory;
+
 
 public class MainActivity extends AppCompatActivity {
-
-    private AuthService mAuthService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        mAuthService = new Retrofit.Builder()
-                .baseUrl("http://diplom-sveta.rhcloud.com/api/")
-                .addConverterFactory(JacksonConverterFactory.create())
-                .build().create(AuthService.class);
     }
+
 
     public void login(View view) {
-        // Get login and password from view
         EditText login = (EditText)findViewById(R.id.loginField);
         EditText password = (EditText)findViewById(R.id.passwordField);
-        // Конструируем запрос на авторизацию.
-        // Util.convertToHeader принимает логин и пароль, преобразовывает их в
-        // base64, и возвращает строку типа "Basic ia83jf032j09fd93".
-        Call<User> result = mAuthService.login(Util
-                .convertToHeader(login.getText().toString(), password.getText().toString()));
-        try {
-            User user = result.execute().body();
-        } catch (IOException e) {
-            Log.d(MainActivity.class.getName(), "IOException was catched", e);
+        User user = new User();
+        UserTask userTask = new UserTask(user);
+        userTask.execute(login.getText().toString(), password.getText().toString());
+    }
+
+    private class UserTask extends AsyncTask<String, Void, User> {
+    private User user;
+
+        public UserTask(User user)
+        {
+            this.user = user;
+        }
+
+        @Override
+        protected User doInBackground(String... params) {
+            EditText login = (EditText)findViewById(R.id.loginField);
+            EditText password = (EditText)findViewById(R.id.passwordField);
+            // Конструируем запрос на авторизацию.
+            // Util.convertToHeader принимает логин и пароль, преобразовывает их в
+            // base64, и возвращает строку типа "Basic ia83jf032j09fd93".
+            User user = null;
+            try {
+                ObjectMapper mapper = new ObjectMapper();
+                String jsonBody = AndroidHttpClient.executeGet("http://diplom-sveta.rhcloud.com/api/auth", "", params[0], params[1]);
+                user = mapper.readValue(jsonBody, User.class);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return user;
+        }
+        @Override
+       protected void onPostExecute(User result) {
+            TextView message = (TextView)findViewById(R.id.textView9);
+            message.setText((CharSequence) result.getName());
+            user = result;
+            Intent intent = new Intent(MainActivity.this, HistoryActivity.class);
+            intent.putExtra("password", result.getPassword());
+            intent.putExtra("login", result.getLogin());
+            startActivity(intent);
         }
     }
+
 
 }
