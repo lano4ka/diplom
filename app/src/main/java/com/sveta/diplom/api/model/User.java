@@ -13,6 +13,18 @@ public class User {
 	private String phone;
 	
 	private String address;
+
+	private Boolean sicked;
+
+	public Boolean getSicked() {
+		return sicked;
+	}
+
+	public void setSicked(Boolean sicked) {
+		this.sicked = sicked;
+	}
+
+
 	
 	public String getName() {
 		return name;

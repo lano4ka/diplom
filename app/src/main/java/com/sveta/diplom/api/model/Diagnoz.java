@@ -1,5 +1,7 @@
 package com.sveta.diplom.api.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.List;
 
 public class Diagnoz {
@@ -8,6 +10,7 @@ public class Diagnoz {
 	
 	private String name;
 
+	@JsonIgnore
 	private List<HistoryOfSick> histories;
 	
 	public Long getId_diagnoz() {

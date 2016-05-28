@@ -64,9 +64,10 @@ public class MainActivity extends AppCompatActivity {
             TextView message = (TextView)findViewById(R.id.textView9);
             message.setText((CharSequence) result.getName());
             user = result;
-            Intent intent = new Intent(MainActivity.this, HistoryActivity.class);
+            Intent intent = new Intent(MainActivity.this, PatientActivity.class);
             intent.putExtra("password", result.getPassword());
             intent.putExtra("login", result.getLogin());
+            intent.putExtra("name", result.getName());
             startActivity(intent);
         }
     }

@@ -6,34 +6,37 @@
               android:weightSum="1">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="336dp"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Введите значение показателя"
-        android:id="@+id/textView10"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Здравствуйте!"
+        android:id="@+id/textView"
+        android:gravity="center_horizontal"
         />
 
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:id="@+id/indicator_name"
+        android:id="@+id/user"
         android:layout_gravity="center_horizontal"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:id="@+id/indicatorName"
+        android:text="Диагноз:"
+        android:id="@+id/textView11"
         android:layout_gravity="center_horizontal"/>
 
-    <EditText
-        android:layout_width="241dp"
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="numberDecimal"
-        android:ems="10"
-        android:id="@+id/value"
-        android:layout_gravity="center_horizontal"/>
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/diagnoz"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="0.04"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -48,21 +51,13 @@
         android:orientation="horizontal" >
 
     </LinearLayout>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView9"
-        android:layout_gravity="center_horizontal"/>
-
 
     <Button
-        android:id="@+id/sendButton"
-        android:layout_width="107dp"
+        android:id="@+id/buttonOK"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Отправить"
-        android:onClick="send"
-        android:layout_weight="0.05"
-        android:layout_gravity="center_horizontal"/>
+        android:text="Перейти к показателям"
+        android:onClick="goToIndicators"
+        android:layout_weight="0.05"/>
 
 </LinearLayout>

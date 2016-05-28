@@ -23,64 +23,40 @@ import com.sveta.diplom.api.model.User;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class HistoryActivity extends ListActivity {
 
     private ListView indicatorsList;
     private ArrayAdapter<String> listAdapter;
+    private ArrayList<String> masForIDs;
+    private String login;
+    private String password;
+    private List<String> masForName;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
         HistoryOfSick history = new HistoryOfSick();
-        HistoryTask historyTask = new HistoryTask(history);
-        historyTask.execute(getIntent().getCharSequenceExtra("login").toString(), getIntent().getCharSequenceExtra("password").toString());
+        java.text.DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(getApplicationContext());
+        login = getIntent().getCharSequenceExtra("login").toString();
+        password = getIntent().getCharSequenceExtra("password").toString();
+        masForIDs = getIntent().getStringArrayListExtra("indicatorsList");
+        masForName = getIntent().getStringArrayListExtra("indicatorsNamesList");
+        listAdapter = new ArrayAdapter<String>(HistoryActivity.this, R.layout.simplerow, R.id.listText, masForName);
+        setListAdapter(listAdapter);
     }
 
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
-        String item = String.valueOf(v.getId());
-        String g = null;
-    }
-
-    private class HistoryTask extends AsyncTask<String, Void, HistoryOfSick> {
-        private HistoryOfSick history;
-
-        public HistoryTask(HistoryOfSick history)
-        {
-            this.history = history;
-        }
-
-        @Override
-        protected HistoryOfSick doInBackground(String... params) {
-            EditText login = (EditText)findViewById(R.id.loginField);
-            EditText password = (EditText)findViewById(R.id.passwordField);
-            // Конструируем запрос на авторизацию.
-            // Util.convertToHeader принимает логин и пароль, преобразовывает их в
-            // base64, и возвращает строку типа "Basic ia83jf032j09fd93".
-            HistoryOfSick history = null;
-            try {
-                ObjectMapper mapper = new ObjectMapper();
-                String jsonBody = AndroidHttpClient.executeGet("http://diplom-sveta.rhcloud.com/api/getCurrentHistory", "", params[0], params[1]);
-                history = mapper.readValue(jsonBody, HistoryOfSick.class);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return history;
-        }
-
-        @Override
-        protected void onPostExecute(HistoryOfSick result) {
-            history = result;
-            ArrayList<String> data = new ArrayList<String>();
-            for (Indicator i: result.getIndicators())
-            {
-                data.add(i.getName());
-            }
-            listAdapter = new ArrayAdapter<String>(HistoryActivity.this, R.layout.simplerow, R.id.listText, data);
-            HistoryActivity.this.setListAdapter(listAdapter);
-        }
+        Intent intent = new Intent(HistoryActivity.this, MeasurementActivity.class);
+        intent.putExtra("id_indicator", masForIDs.get(position));
+        intent.putExtra("name_indicator", masForName.get(position));
+        intent.putExtra("login", login);
+        intent.putExtra("password", password);
+        startActivity(intent);
     }
 
 }
